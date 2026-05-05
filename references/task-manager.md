@@ -12,46 +12,7 @@ Use the exact ticket code from the ticket manager. For ad-hoc tasks, use `adhoc-
 
 ## File Template
 
-```markdown
-# {TICKET-CODE}
-
-## Ticket
-- **Code**: {TICKET-CODE}
-- **URL**: {ticket_manager}/browse/{TICKET-CODE}
-
-## Ticket Manager Status
-- **Status**: {To Do / In Progress / In Review / Done}
-- **Title**: {ticket title if known}
-- **Priority**: {Low / Medium / High / Critical}
-- **Last Update**: {ISO timestamp}
-- **Comments**: {summary of last known comments and updates}
-
-## Linked Tickets
-- **Blockers**: {list of blocking tickets}
-- **Related**: {list of related tickets}
-
-## PR Status
-- **URL**:
-- **Status**: {Open / Merged / Closed}
-- **Reviewers**:
-- **Latest Suggestions**: {summary of review feedback}
-
-
-## Acceptance Criteria
-- {user-facing or product-level acceptance criterion 1}
-- {user-facing or product-level acceptance criterion 2}
-
-## Technical Requirements
-- {simple and precise implementation requirement 1}
-- {simple and precise implementation requirement 2}
-
-## Testing
-- {how to test this feature 1}
-- {how to test this feature 2}
-
-## Notes
-{free-form notes}
-```
+See [`task-profile-template.md`](task-profile-template.md) for the task profile template.
 
 ## Guidelines
 
