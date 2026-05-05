@@ -2,6 +2,8 @@
 
 Manages the `~/.dev-workflow/development.md` project environment file.
 
+In the SDD workflow, this file acts as the **project constitution** — it defines the context, conventions, and boundaries within which every task specification is written.
+
 ## File Template
 
 ```markdown
@@ -24,7 +26,7 @@ Manages the `~/.dev-workflow/development.md` project environment file.
 - **{description}**: {url}
 
 ## Additional Workflow
-{branch naming, commit conventions, coding standards, or other project rules}
+{branch naming, commit conventions, coding standards, SDD conventions (e.g., TDD enforcement, spec-update-before-code rules), or other project rules}
 ```
 
 ## Auto-Discovery

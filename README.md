@@ -1,19 +1,34 @@
 # dev-workflow
 
-A Kimi Code CLI skill that auto-discovers project configuration and manages task context before any code change.
+A Kimi Code CLI skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
 
 ## What it does
 
-This skill gives the agent full development context before it writes or edits any code. It works by maintaining two types of files in `~/.dev-workflow/`:
+This skill gives the agent full development context before it writes or edits any code. It follows a structured **Spec-Driven Development (SDD)** workflow where specifications are written *before* implementation.
 
-1. **`development.md`** — Global project environment (developer info, ticket manager URL, local codebases, workflow rules).
-2. **`{TICKET-CODE}.md`** — Per-task context (acceptance criteria, technical requirements, testing steps, PR status).
+It maintains two types of files in `~/.dev-workflow/`:
+
+1. **`development.md`** — Global project environment (developer info, ticket manager URL, local codebases, workflow rules). Acts as the **project constitution**.
+2. **`{TICKET-CODE}.md`** — Per-task spec file structured into SDD phases: Specification → Design → Implementation → Validation.
 
 When you start a task, mention a ticket code, or ask for implementation work, the skill:
 - Auto-detects or creates the project environment file.
 - Loads or creates a task file for the current ticket.
-- Ensures requirements are captured before any code is written.
+- Guides the agent through the SDD workflow: **Discover → Specify → Design → Implement → Validate**.
+- Ensures requirements and acceptance criteria are captured before any code is written.
 - Keeps ticket and PR status synced as work progresses.
+
+## SDD Workflow
+
+Every task flows through five phases:
+
+| Phase | Purpose |
+|-------|---------|
+| **1. Discovery** | Load project context, fetch ticket details, understand scope. |
+| **2. Specify** | Write requirements, acceptance criteria, and boundaries. |
+| **3. Design** | Create technical plan, file structure, and task breakdown. |
+| **4. Implement** | Execute tasks with progress tracking and TDD where appropriate. |
+| **5. Validate & Archive** | Verify against the spec, review, and complete. |
 
 ## Installation
 
@@ -41,17 +56,20 @@ Work on PROJ-123
 
 The agent will:
 1. Discover your project settings.
-2. Create `~/.dev-workflow/PROJ-123.md` from the task template.
-3. Ask if you want to pull ticket details (title, acceptance criteria, etc.) from your ticket manager.
-4. Capture everything before writing any code.
+2. Create `~/.dev-workflow/PROJ-123.md` from the task profile template.
+3. Pull ticket details (title, acceptance criteria, etc.) from your ticket manager.
+4. Write the specification (requirements, boundaries) before writing any code.
+5. Create a technical design and task breakdown.
+6. Implement with validation checkpoints.
 
 ## Files
 
 | File | Purpose |
 |------|---------|
 | `SKILL.md` | Skill manifest and trigger rules |
-| `references/development-manager.md` | Instructions for managing `development.md` |
-| `references/task-manager.md` | Instructions for managing per-task files |
+| `references/development-manager.md` | Instructions for managing `development.md` (project constitution) |
+| `references/task-manager.md` | Instructions for managing per-task spec files |
+| `references/task-profile-template.md` | SDD-aligned task spec template |
 
 ## Requirements
 
