@@ -39,7 +39,7 @@ When no ticket code is detected:
    - **Code**: `adhoc-{timestamp}`
    - **URL**: (empty)
 3. Populate **1. Specification** (Requirements, Acceptance Criteria, Boundaries) from the user's request.
-4. Proceed through the SDD workflow: Design → Implement → Validate.
+4. Proceed through the SDD workflow: Design → (Implement only when explicitly asked) → Validate.
 
 ## Rules
 
