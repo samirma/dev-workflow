@@ -36,9 +36,9 @@ When creating or loading a task file:
 2. If the task file does not exist, create it from the template.
 3. For tickets with a URL, use the browser tool to extract:
    - Title, Priority, Status
-   - Description and comments
+   - Description and comments (including any inline URLs to external docs or designs)
    - Linked tickets (blockers, related)
-   - Attachments and linked resources
+   - Attachments
 4. Populate the **Context** and **Linked Tickets** sections.
 5. Set `Last Update` to the current ISO timestamp.
 
@@ -50,7 +50,7 @@ When creating or loading a task file:
 
 Before any design or implementation:
 
-1. Read the ticket description and all linked resources carefully.
+1. Read the ticket description carefully. If the description or comments contain URLs (Confluence pages, Figma designs, API specs, architecture docs, etc.), use the browser tool to fetch and read them.
 2. Extract or write **Requirements** — define *what* must be built and *why*.
 3. Extract or write **Acceptance Criteria** — define "done" from a user or product perspective.
 4. Define **Boundaries & Dependencies**:
@@ -90,9 +90,9 @@ After specification is complete:
 
 ## Phase 4: Implement
 
-> Execute the plan and track progress.
+> Execute the plan and track progress. **Only run this phase when explicitly asked by the user.**
 
-During implementation:
+After the user explicitly requests implementation:
 
 1. Work through the **Task Breakdown** sequentially.
 2. Update **Progress** as tasks are completed.
