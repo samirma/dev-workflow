@@ -1,6 +1,6 @@
 # dev-workflow
 
-A Kimi Code CLI skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
+A Skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
 
 ## What it does
 
