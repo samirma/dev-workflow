@@ -1,6 +1,6 @@
 # dev-workflow
 
-A Kimi Code CLI skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
+A generic AI agent skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
 
 ## What it does
 
@@ -38,11 +38,11 @@ Every task flows through five phases:
 git clone git@github.com:samirma/dev-workflow.git ~/.agents/skills/dev-workflow
 ```
 
-> Kimi Code CLI looks for skills under `~/.agents/skills/` by default. If your CLI is configured to use a different path, clone there instead.
+> Your AI agent CLI looks for skills under `~/.agents/skills/` by default. If your CLI is configured to use a different path, clone there instead.
 
 ### 2. Verify it loads
 
-Restart Kimi Code CLI or start a new session. The skill should appear in the available skills list.
+Restart your AI agent CLI or start a new session. The skill should appear in the available skills list.
 
 ### 3. Start using it
 
@@ -73,7 +73,6 @@ The agent will:
 
 ## Requirements
 
-- [Kimi Code CLI](https://github.com/samirma/kimi-cli) (or any compatible CLI that supports the skill system)
 - A ticket manager URL (Jira, Linear, etc.) is optional but recommended
 
 ## License
