@@ -5,12 +5,20 @@ description: Development workflow that auto-discovers project configuration and 
 
 # Development Workflow
 
-Give the agent full development context before any code change. Context comes from two sources:
+## Auto-Load Development Environment
 
-1. **Development environment** (`~/.dev-workflow/development.md`) — follow [references/development-manager.md](references/development-manager.md) to load or create it.
-2. **Current task** (`~/.dev-workflow/{TICKET}.md`) — follow [references/task-manager.md](references/task-manager.md) to load or create it.
+When this skill is loaded, **automatically check for and load** `~/.dev-workflow/development.md` if it exists. Follow [references/development-manager.md](references/development-manager.md) to load or create it.
 
-Once loaded, proceed with the user's request while considering both context sources for every decision.
+- If the file exists: load it silently and use it as project context.
+- If the file does not exist: do **not** prompt the user to create it unless they explicitly request a task that requires it.
+
+## Task Context (On-Demand Only)
+
+Only load or create a task file (`~/.dev-workflow/{TICKET}.md`) when the user **explicitly requests** work on a task. Follow [references/task-manager.md](references/task-manager.md) when a task is requested.
+
+Do **not** create ad-hoc tasks or assume a task context unless the user explicitly asks to start, continue, or work on something.
+
+Once both development environment and task context are loaded, proceed with the user's request while considering both context sources for every decision.
 
 ## SDD Methodology
 
@@ -24,15 +32,15 @@ This skill follows **Spec-Driven Development (SDD)** — a software engineering 
 
 ## Trigger Parsing
 
-Detect the ticket code or task identifier from the user's first message:
+Only activate task loading when the user explicitly references a task:
 
 - **Ticket codes**: `PROJ-123`, `TEAM_456`, `#789`, or any `{PREFIX}-{NUMBER}` pattern.
-- **Task names**: If the user says *"continue X"* or *"work on X"*, use `X` as the task identifier.
-- **Ad-hoc tasks**: If no ticket code or task name is found, create an ad-hoc task file named `adhoc-{timestamp}.md`.
+- **Task names**: If the user says *"continue X"*, *"work on X"*, or *"start X"*, use `X` as the task identifier.
+- **Ad-hoc tasks**: Only create `adhoc-{timestamp}.md` if the user explicitly says something like *"start a new task"* or *"work on something new"* without a ticket code.
 
 ## Ad-Hoc Tasks
 
-When no ticket code is detected:
+When the user explicitly requests a new task but no ticket code is provided:
 
 1. Create `~/.dev-workflow/adhoc-{timestamp}.md` from the task profile template.
 2. Set the **Context** section to:
@@ -43,8 +51,8 @@ When no ticket code is detected:
 
 ## Rules
 
-- Never act before both config and task context are loaded.
-- Reference `development.md` for codebase scope and workflow rules on every task.
+- Auto-load `development.md` silently if it exists;
+- Only load or create task context when the user explicitly requests it.
 - Reference the current task file for requirements and testing steps on every task.
 - **All new requirements must be written to the task file (Phase 2: Specify) before implementation.**
 - Do not run `git commit`, `git push`, or `git rebase` unless explicitly instructed.
