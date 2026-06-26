@@ -76,7 +76,7 @@ Before any design or implementation:
 
 ### Guidelines for Specification
 
-- **Requirements** should answer *how to fix or solve* the ticket. Base them on:
+- **Requirements** should answer *what* to build and *why*. Base them on:
   - The ticket description.
   - Attached or linked resources.
   - Relevant information in comments.
