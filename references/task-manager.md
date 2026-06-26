@@ -2,6 +2,19 @@
 
 Manages per-task files in `~/.dev-workflow/` named after ticket codes, following a **Spec-Driven Development (SDD)** workflow.
 
+## Contents
+
+- [SDD Workflow Overview](#sdd-workflow-overview)
+- [File Naming](#file-naming)
+- [File Template](#file-template)
+- [Phase 1: Discovery](#phase-1-discovery)
+- [Phase 2: Specify](#phase-2-specify)
+- [Phase 3: Design](#phase-3-design)
+- [Phase 4: Implement](#phase-4-implement)
+- [Phase 5: Validate & Archive](#phase-5-validate--archive)
+- [Updating Requirements](#updating-requirements)
+- [Update from Ticket Manager](#update-from-ticket-manager)
+
 ## SDD Workflow Overview
 
 This skill implements a 5-phase SDD (Spec-Driven Development) workflow. SDD is a software engineering methodology where structured specifications act as the primary source of truth before any code is written. Specifications become executable contracts that guide implementation and validate correctness:
@@ -20,7 +33,7 @@ This skill implements a 5-phase SDD (Spec-Driven Development) workflow. SDD is a
 ~/.dev-workflow/{TICKET-CODE}.md
 ```
 
-Use the exact ticket code from the ticket manager. For ad-hoc tasks, use `adhoc-{timestamp}.md`.
+Use the exact ticket code from the ticket manager. For ad-hoc tasks, use `adhoc-{timestamp}.md` with an ISO-8601 compact timestamp: `adhoc-YYYYMMDDTHHMMSSmmm.md` (for example, `adhoc-20260626T115825913.md`).
 
 ## File Template
 

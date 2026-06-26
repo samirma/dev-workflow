@@ -20,6 +20,8 @@ Do **not** create ad-hoc tasks or assume a task context unless the user explicit
 
 Once both development environment and task context are loaded, proceed with the user's request while considering both context sources for every decision.
 
+WHen the a task is being created it should follow automatically the SDD phases until the phase 3 then appresent the user with the design and ask for approval to continue to phase 4.
+
 ## SDD Methodology
 
 This skill follows **Spec-Driven Development (SDD)** — a software engineering methodology where structured, machine-readable specifications act as the primary source of truth before any code is written. In SDD, specifications become executable contracts that guide implementation and validate correctness. Every task flows through:
@@ -29,6 +31,8 @@ This skill follows **Spec-Driven Development (SDD)** — a software engineering 
 3. **Design** — Create the technical plan and task breakdown.
 4. **Implement** — Execute with validation checkpoints.
 5. **Validate & Archive** — Verify against the spec and complete.
+
+For a multi-agent breakdown of which agent should handle each phase, see [references/multi-agent-phases.md](references/multi-agent-phases.md).
 
 ## Trigger Parsing
 
@@ -42,7 +46,7 @@ Only activate task loading when the user explicitly references a task:
 
 When the user explicitly requests a new task but no ticket code is provided:
 
-1. Create `~/.dev-workflow/adhoc-{timestamp}.md` from the task profile template.
+1. Create `~/.dev-workflow/adhoc-{timestamp}.md` from the task profile template. Use an ISO-8601 compact timestamp with milliseconds and no separators: `adhoc-YYYYMMDDTHHMMSSmmm.md` (for example, `adhoc-20260626T115825913.md`).
 2. Set the **Context** section to:
    - **Code**: `adhoc-{timestamp}`
    - **URL**: (empty)
@@ -57,3 +61,4 @@ When the user explicitly requests a new task but no ticket code is provided:
 - **All new requirements must be written to the task file (Phase 2: Specify) before implementation.**
 - Do not run `git commit`, `git push`, or `git rebase` unless explicitly instructed.
 - **Local project overrides**: If the current project's `AGENTS.md`, `CONTRIBUTING.md`, or `.github/PULL_REQUEST_TEMPLATE.md` contradicts a global dev-workflow rule, follow the **local** project rule and note the override in the task file.
+- **Authority order**: Project-local `AGENTS.md` is the highest-authority source of project context. `development.md` supplements `AGENTS.md`; it does not replace it. When both files exist, prefer `AGENTS.md` for project-specific conventions and use `development.md` only for cross-project developer preferences and discovered links.
