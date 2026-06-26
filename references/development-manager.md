@@ -10,7 +10,7 @@ See [`development-environment-template.md`](development-environment-template.md)
 
 ## Auto-Discovery
 
-Before asking the user, attempt to infer each field using Shell commands:
+Before asking the user, attempt to infer each field using shell commands or available tools:
 
 | Field | Discovery Sources |
 |-------|-------------------|
