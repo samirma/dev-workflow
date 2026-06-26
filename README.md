@@ -1,6 +1,6 @@
 # dev-workflow
 
-A generic AI agent skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
+An AI agent skill that auto-discovers project configuration and manages task context using **Spec-Driven Development (SDD)**.
 
 ## What it does
 
@@ -11,8 +11,8 @@ It maintains two types of files in `~/.dev-workflow/`:
 1. **`development.md`** — Global project environment (developer info, ticket manager URL, local codebases, workflow rules). Acts as the **project constitution**.
 2. **`{TICKET-CODE}.md`** — Per-task spec file structured into SDD phases: Specification → Design → Implementation → Validation.
 
-When you start a task, mention a ticket code, or ask for implementation work, the skill:
-- Auto-detects or creates the project environment file.
+When you explicitly reference a ticket code, task name, or ask to start or continue work on a task, the skill:
+- Auto-discovers and creates the project environment file if it is missing.
 - Loads or creates a task file for the current ticket.
 - Guides the agent through the SDD workflow: **Discover → Specify → Design → Implement → Validate**.
 - Ensures requirements and acceptance criteria are captured before any code is written.
@@ -46,7 +46,7 @@ Restart your AI agent CLI or start a new session. The skill should appear in the
 
 ### 3. Start using it
 
-Begin any development request. The skill will trigger automatically and either load your existing `~/.dev-workflow/development.md` or guide you through creating one.
+Reference a ticket code or task name. The skill will trigger automatically and either load your existing `~/.dev-workflow/development.md` or auto-discover and create it.
 
 ## Quick start
 
@@ -55,12 +55,12 @@ Work on PROJ-123
 ```
 
 The agent will:
-1. Discover your project settings.
+1. Load `~/.dev-workflow/development.md` if it exists, or auto-discover and create it.
 2. Create `~/.dev-workflow/PROJ-123.md` from the task profile template.
 3. Pull ticket details (title, acceptance criteria, etc.) from your ticket manager.
 4. Write the specification (requirements, boundaries) before writing any code.
 5. Create a technical design and task breakdown.
-6. Implement with validation checkpoints.
+6. Present the design for approval, then implement with validation checkpoints.
 
 ## Files
 
@@ -70,6 +70,7 @@ The agent will:
 | `references/development-manager.md` | Instructions for managing `development.md` (project constitution) |
 | `references/task-manager.md` | Instructions for managing per-task spec files |
 | `references/task-profile-template.md` | SDD-aligned task spec template |
+| `references/multi-agent-phases.md` | How to distribute SDD phases across agents |
 
 ## Requirements
 
