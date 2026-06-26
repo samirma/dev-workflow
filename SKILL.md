@@ -34,6 +34,8 @@ This skill follows **Spec-Driven Development (SDD)** — a software engineering 
 
 For a multi-agent breakdown of which agent should handle each phase, see [references/multi-agent-phases.md](references/multi-agent-phases.md).
 
+Each time that a phase is completed, the skill should update the task file with is current state and the timestamp of the last update. The task file should always reflect the current state of the task, including any new requirements or changes.
+
 ## Trigger Parsing
 
 Only activate task loading when the user explicitly references a task:
