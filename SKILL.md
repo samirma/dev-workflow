@@ -32,7 +32,7 @@ This skill follows **Spec-Driven Development (SDD)** — a software engineering 
 4. **Implement** — Execute with validation checkpoints.
 5. **Validate & Archive** — Verify against the spec and complete.
 
-For a multi-agent breakdown of which agent should handle each phase, see [references/multi-agent-phases.md](references/multi-agent-phases.md).
+Spawn an agent for each SDD phase as described in [references/multi-agent-phases.md](references/multi-agent-phases.md).
 
 Each time a phase is completed, update the task file with its current state and the timestamp of the last update. The task file should always reflect the current state of the task, including any new requirements or changes.
 
