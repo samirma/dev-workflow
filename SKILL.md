@@ -1,63 +1,41 @@
 ---
 name: dev-workflow
-description: Auto-discovers project configuration and manages task context using Spec-Driven Development (SDD). Use when the user explicitly references a ticket code, task name, or asks to start or continue work on a task. Loads ~/.dev-workflow/development.md silently if it exists.
+description: Auto-discovers project configuration and manages ticket-based or in-memory development tasks using Spec-Driven Development (SDD). Use when the user references a ticket, asks to create, load, continue, or implement a task or devtask, or starts a new task with raw requirements.
 ---
 
 # Development Workflow
 
-## Auto-Load Development Environment
+## Project environment
 
-When this skill is loaded, **automatically check for and load** `~/.dev-workflow/development.md` if it exists. Follow [references/development-manager.md](references/development-manager.md) to load or create it.
+At activation, silently load `~/.dev-workflow/development.md` when it exists. When a task is actually initiated and the file is missing, follow [`references/development-manager.md`](references/development-manager.md) to create it. Do not create project configuration for discussion that has not initiated a task.
 
-- If the file exists: load it silently and use it as project context.
-- If the file does not exist: follow [references/development-manager.md](references/development-manager.md) to auto-discover the settings and create it when a task is requested.
+## Trigger and identity
 
-## Task Context (On-Demand Only)
+Treat **task** and **devtask** as equivalent words.
 
-Only load or create a task file (`~/.dev-workflow/{TICKET-CODE}.md`) when the user **explicitly requests** work on a task. Follow [references/task-manager.md](references/task-manager.md) when a task is requested.
+A ticket task activates when the user supplies a ticket token with task or work intent, including requests to create, load, continue, or work on it. A direct ticket reference used as the requested task also activates this workflow. Preserve this existing ticket behavior.
 
-Do **not** create ad-hoc tasks or assume a task context unless the user explicitly asks to start, continue, or work on something.
+A non-ticket ad-hoc task begins at the exact point where the user explicitly asks to create, start, or begin a task or devtask. Do not initialize an ad-hoc task from requirements alone, a general question, or discussion of possible work.
 
-Once both development environment and task context are loaded, proceed with the user's request while considering both context sources for every decision.
+Resolve identity in this order:
 
-When a task file is created or loaded, automatically proceed through the SDD phases up to Design (phase 3), then present the design to the user and ask for approval before continuing to Implement (phase 4).
+1. **Ticket token takes precedence.** If the initiating or loading request contains a ticket token such as `PROJ-123`, `TEAM_456`, or `#789`, preserve the token exactly and use the ticket workflow. Test `~/.dev-workflow/{TASK-ID}.md`: an existing file loads; a missing file creates. The words *create* and *load* do not override this existence check.
+2. **Raw requirements create an ad-hoc task.** If no ticket token is present, immediately retain the user's complete initiating requirements in the runtime active-task context before summarising or analysing them. Derive a concise descriptive task name from the work itself. The name is only a runtime label: do not generate an ID, path, task file, alternate record, or persistent-memory entry.
 
-## SDD Methodology
+If a non-ticket initiation does not contain actionable requirements, ask for them before initializing the task. If an ad-hoc continuation has lost its runtime context, ask for the requirements and current progress; never search for a saved record.
 
-This skill follows **Spec-Driven Development (SDD)** — a software engineering methodology where structured, machine-readable specifications act as the primary source of truth before any code is written. In SDD, specifications become executable contracts that guide implementation and validate correctness. Every task flows through:
+## SDD model
 
-1. **Discovery** — Understand context and gather requirements.
-2. **Specify** — Define the contract (requirements, acceptance criteria, boundaries).
-3. **Design** — Create the technical plan and task breakdown.
-4. **Implement** — Execute with validation checkpoints.
-5. **Validate & Archive** — Verify against the spec and complete.
+Every active task follows Discovery, Specification, Design, Implementation, and Validation in order. The active-task model, storage adapters, continuation rules, phase index, gates, and shared SDD rules are defined in [`references/task-manager.md`](references/task-manager.md).
 
-Spawn an agent for each SDD phase as described in [references/multi-agent-phases.md](references/multi-agent-phases.md).
+## Routing
 
-Each time a phase is completed, update the task file with its current state and the timestamp of the last update. The task file should always reflect the current state of the task, including any new requirements or changes.
+| Situation | Route |
+|---|---|
+| Ticket token whose exact task file exists | [`references/task-load.md`](references/task-load.md) |
+| Ticket token whose exact task file is missing | [`references/task-create.md`](references/task-create.md) |
+| New non-ticket task with raw requirements | *Create*; remain in that controller for its entire runtime lifecycle |
+| Follow-up for the active ad-hoc task | *Create* again; resume the same runtime context |
+| Follow-up for an active persisted ticket task | [`references/task-work.md`](references/task-work.md) |
 
-## Trigger Parsing
-
-Only activate task loading when the user explicitly references a task:
-
-- **Ticket codes**: `PROJ-123`, `TEAM_456`, `#789`, or any `{PREFIX}-{NUMBER}` pattern.
-- **Task names**: If the user says *"continue X"*, *"work on X"*, or *"start X"*, use `X` as the task identifier.
-- **Ad-hoc tasks**: Only create `adhoc-{timestamp}.md` if the user explicitly says something like *"start a new task"* or *"work on something new"* without a ticket code.
-
-## Ad-Hoc Tasks
-
-When the user explicitly requests a new task but no ticket code is provided:
-
-1. Create `~/.dev-workflow/adhoc-{timestamp}.md` from the task profile template. Use an ISO-8601 compact timestamp with milliseconds, keeping the `T` date-time separator: `adhoc-YYYYMMDDTHHMMSSmmm.md` (for example, `adhoc-20260626T115825913.md`).
-2. Set the **Context** section to:
-   - **Code**: `adhoc-{timestamp}`
-   - **URL**: (empty)
-3. Populate **1. Specification** (Requirements, Acceptance Criteria, Boundaries) from the user's request.
-4. Proceed through the SDD workflow: Design → (Implement only when explicitly asked) → Validate.
-
-## Rules
-
-- Reference the current task file for requirements and testing steps on every task.
-- **All new requirements must be written to the task file (Phase 2: Specify) before implementation.**
-- **Local project overrides**: If the current project's `AGENTS.md`, `CONTRIBUTING.md`, or `.github/PULL_REQUEST_TEMPLATE.md` contradicts a global dev-workflow rule, follow the **local** project rule and note the override in the task file.
-- **Authority order**: Project-local `AGENTS.md` is the highest-authority source of project context. `development.md` supplements `AGENTS.md`; it does not replace it. When both files exist, prefer `AGENTS.md` for project-specific conventions and use `development.md` only for cross-project developer preferences and discovered links.
+An ad-hoc task never enters *Load* or *Work*. A persisted ticket task never substitutes a descriptive name for its exact ticket ID.

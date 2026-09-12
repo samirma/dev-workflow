@@ -1,5 +1,7 @@
 # Development Environment
 
+> Every field must carry a real value or `Unknown`. Do not leave a `{placeholder}` in the written file.
+
 ## Developer
 - **Name**: {developer_name}
 - **Email**: {developer_email}
@@ -17,4 +19,4 @@
 - **{description}**: {url}
 
 ## Additional Workflow
-{branch naming, commit conventions, coding standards, SDD conventions (e.g., TDD enforcement, spec-update-before-code rules), or other project rules}
+{branch naming, commit conventions, coding standards, and any project rules such as TDD enforcement or spec-update-before-code — one sentence, or `Unknown`}
